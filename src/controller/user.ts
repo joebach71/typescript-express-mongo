@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import * as moment from 'moment';
-import { IUser } from '../interface/user';
+import { IUser } from '../interface/collector';
 import { UserRepository } from '../repository/user';
 
 export default class UserController {

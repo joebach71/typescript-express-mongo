@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 import { Model } from 'mongoose';
-import { IUser } from '../interface/user';
+import { IUser } from '../interface/collector';
 import { IUserModel, User } from '../model/user';
 
 export class UserRepository {

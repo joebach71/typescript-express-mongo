@@ -6,3 +6,8 @@ export interface IUser {
   firstName?: string;
   lastName?: string;
 }
+
+export enum RESPONSE_CODE {
+  SUCCESS,
+  FAILED
+}

@@ -1,12 +1,16 @@
 import { Express, Router, Request, Response, NextFunction } from 'express';
+import IndexController from '../controller/index';
 import { UserRouter } from './user';
 
 export default class Routes {
   public router: Router;
   private app: Express;
+  private controller: IndexController;
 
   /*--------  Constructor  --------*/
   constructor(app: Express) {
+    // Set default Controller
+    this.controller = new IndexController();
     // 
     // Set router
     this.router = Router();
@@ -39,15 +43,6 @@ export default class Routes {
   private setMainRoute() {
     // 
     // All other routes should redirect to the index.html
-    this.app.route('/*').get(this.index);
-  }
-
-  /**
-   * Main route
-   */
-  private index(req: Request, res: Response, next: NextFunction) {
-    res.json({
-      message: 'Hello World!'
-    });
+    this.app.route('/*').get(this.controller.sayHello);
   }
 }

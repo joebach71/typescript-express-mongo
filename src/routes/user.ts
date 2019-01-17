@@ -1,6 +1,6 @@
 import { Router } from "express";
 import UserController from "../controller/user";
-import { IUser } from '../interface/user';
+import { IUser } from '../interface/collector';
 
 export class UserRouter {
 
@@ -22,7 +22,6 @@ export class UserRouter {
    * Init all routes in this router
    */
   init(controller?: UserController) {
-    
     this.router.get('/', this.controller.getAll);
     this.router.post('/', this.controller.create);
   }
