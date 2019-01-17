@@ -1,31 +1,41 @@
 import * as _ from 'lodash';
-import { Model } from 'mongoose';
+import { Model, model } from 'mongoose';
 import { IUser } from '../interface/collector';
-import { IUserModel, User } from '../model/user';
+import { IUserDocument, UserModel } from '../model/user';
 
 export class UserRepository {
-  private model: Model<IUserModel>;
+  private model: Model<IUserDocument>;
   constructor() {
-    this.model = User;
+    this.model = UserModel;
   }
   async getAll(): Promise<IUser[]> {
     const users = await this.model.find({}).exec();
     return _.map(users, user => { return user.toObject(); });
   }
-  async getUser(username: string): Promise<IUser|undefined> {
+  async get(username: string): Promise<IUser|undefined> {
     const user = await this.model.findOne({ username }).exec();
     if (!user) return;
     return user.toObject();
   }
   async create(params: IUser):
                Promise<IUser> {
-    const user = new User(params);
-    console.info(`repo: ${user}`);
-    return await user.save();
+    const user = new this.model(params);
+    await user.save();
+    return user.toObject();
   }
   async update(params: IUser): Promise<IUser|undefined> {
-    const doc = await this.model.findOneAndUpdate({ _id: params.username }, params).exec();
+    const { username } = params;
+    if (!username) {
+      console.error(`Missing required field::username:${username}`);
+      return;
+    }
+    const doc = await this.model.findOneAndUpdate({ username }, params, { new: true }).exec();
     if (!doc) return;
     return doc.toObject();
+  }
+  async delete(username: string): Promise<IUser|undefined> {
+    const user = await this.model.findOneAndRemove({ username }).exec();
+    if (!user) return;
+    return user.toObject();
   }
 }

@@ -7,7 +7,6 @@ export default class IndexController {
     // 
     // Initialize
     this.init();
-    return this;
   }
   /**
    * Get all

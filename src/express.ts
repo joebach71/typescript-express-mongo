@@ -7,10 +7,10 @@ import mongoose = require('mongoose');
 import logger = require("morgan");
 import * as path from "path";
 import Routes from "./routes/index";
+// import { database } = require('./config/database');
 
 class Express {
   public app: express.Express;
-  // private connection: mongoose.Connection;
   private envFile = 'src/.env';
 
   /*--------  Constructor  --------*/
@@ -58,7 +58,7 @@ class Express {
     if (!uri) {
       uri = process.env.MONGO_URI || 'mongodb://localhost:27017/collector';
     }
-    opts = opts || { useMongoClient: true };
+    opts = opts || { useNewUrlParser: true };
     mongoose.connect(uri, opts, (err) => {
       if (err) {
         console.log(err.message);
