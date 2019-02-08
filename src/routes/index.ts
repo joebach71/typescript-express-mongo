@@ -1,5 +1,6 @@
 import { Express, Router, Request, Response, NextFunction } from 'express';
 import IndexController from '../controller/index';
+import { AuthRouter } from './auth';
 import { UserRouter } from './user';
 
 export default class Routes {
@@ -30,6 +31,7 @@ export default class Routes {
     // 
     // Your routes goes here
     this.app.use('/user', new UserRouter().router);
+    this.app.use('/login', new AuthRouter().router);
     /*--------  Main routes  --------*/
     // 
     // Set main route for any other route found

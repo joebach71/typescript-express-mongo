@@ -44,8 +44,8 @@ export class UserController {
   public async create(req: Request, res: Response, next: NextFunction) {
     // 
     // deconstruct
-    const { username, email, firstName, lastName, password } = req.body;
-    const params: IUser = { username, email, firstName, lastName, password };
+    const { email, firstName, lastName, password } = req.body;
+    const params: IUser = { email, firstName, lastName, password };
     try {
       // Create mongo document
       const user = await UserRepo.create(params);
@@ -75,9 +75,9 @@ export class UserController {
   public async update(req: Request, res: Response, next: NextFunction) {
     // 
     // deconstruct
-    const username = req.params['username'];
-    const { email, firstName, lastName, password } = req.body;
-    const params: IUser = { username, email, firstName, lastName, password };
+    const email = req.params['email'];
+    const { firstName, lastName, password } = req.body;
+    const params: IUser = { email, firstName, lastName, password };
     try {
       // Create mongo document
       const user = await UserRepo.update(params);
@@ -107,10 +107,10 @@ export class UserController {
   public async get(req: Request, res: Response, next: NextFunction) {
     // 
     // deconstruct
-    const username = req.params['username'];
+    const email = req.params['email'];
     try {
       // Create mongo document
-      const user = await UserRepo.get(username);
+      const user = await UserRepo.get(email);
       if (!user) {
         return res.status(200).send({
           message: 'Not Found!',
@@ -137,10 +137,10 @@ export class UserController {
   public async delete(req: Request, res: Response, next: NextFunction) {
     // 
     // deconstruct
-    const username = req.params['username'];
+    const email = req.params['email'];
     try {
       // Create mongo document
-      const user = await UserRepo.delete(username);
+      const user = await UserRepo.delete(email);
       res.status(200).send({
         message: 'Deleted!',
         model: user

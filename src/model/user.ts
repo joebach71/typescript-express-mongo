@@ -6,13 +6,12 @@ export interface IUserDocument extends IUser, Document {
 }
 
 export const UserSchema: Schema = new Schema({
-  username: { type: String, unique: true },
+  email: { type: String, unique: true },
   password: { type: String },
   createdAt: { type: Date, default: Date.now },
-  email: { type: String, unique: true },
   firstName: { type: String },
   lastName: { type: String }
-}, { shardKey: { username: 'hashed'}} as any);
+}, { shardKey: { email: 'hashed'}} as any);
 UserSchema.methods.fullName = function(): string {
   return `${this.firstName.trim()} ${this.lastName.trim()}`;
 };

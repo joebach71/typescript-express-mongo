@@ -12,8 +12,8 @@ export class UserRepository {
     const users = await this.model.find({}).exec();
     return _.map(users, user => { return user.toObject(); });
   }
-  async get(username: string): Promise<IUser|undefined> {
-    const user = await this.model.findOne({ username }).exec();
+  async get(email: string): Promise<IUser|undefined> {
+    const user = await this.model.findOne({ email }).exec();
     if (!user) return;
     return user.toObject();
   }
@@ -24,17 +24,17 @@ export class UserRepository {
     return user.toObject();
   }
   async update(params: IUser): Promise<IUser|undefined> {
-    const { username } = params;
-    if (!username) {
-      console.error(`Missing required field::username:${username}`);
+    const { email } = params;
+    if (!email) {
+      console.error(`Missing required field::email:${email}`);
       return;
     }
-    const doc = await this.model.findOneAndUpdate({ username }, params, { new: true }).exec();
+    const doc = await this.model.findOneAndUpdate({ email }, params, { new: true }).exec();
     if (!doc) return;
     return doc.toObject();
   }
-  async delete(username: string): Promise<IUser|undefined> {
-    const user = await this.model.findOneAndRemove({ username }).exec();
+  async delete(email: string): Promise<IUser|undefined> {
+    const user = await this.model.findOneAndRemove({ email }).exec();
     if (!user) return;
     return user.toObject();
   }

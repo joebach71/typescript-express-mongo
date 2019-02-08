@@ -20,9 +20,11 @@ export class UserRouter {
   init() {
     this.router.get('/', this.controller.getAll);
     this.router.post('/', this.controller.create);
-    this.router.get('/:username', this.controller.get);
-    this.router.put('/:username', this.controller.update);
-    this.router.delete('/:username', this.controller.delete);
+    this.router.get('/:email', this.controller.get);
+    this.router.put('/:email', this.controller.update);
+    this.router.delete('/:email', this.controller.delete);
+    /* profile routes */
+    this.router.get('/profile/:email', this.controller.get);
   }
 }
 // 
